@@ -133,7 +133,15 @@
     }
 
     function startGame() {
-      showSloth();
+      playBtn.style.display = 'none';
+      restartBtn.style.display = 'none';
+      winMessage.style.display = 'none';
+      score = 0;
+      timeLeft = 30;
+      scoreDisplay.textContent = score;
+      timeDisplay.textContent = timeLeft;
+      updateHighScore();
+
       gameInterval = setInterval(() => {
         timeLeft--;
         timeDisplay.textContent = timeLeft;
