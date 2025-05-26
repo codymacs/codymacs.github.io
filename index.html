@@ -132,16 +132,7 @@
       highScoreDisplay.textContent = localStorage.getItem('slothHighScore');
     }
 
-    function startGame() {
-      playBtn.style.display = 'none';
-      restartBtn.style.display = 'none';
-      winMessage.style.display = 'none';
-      score = 0;
-      timeLeft = 30;
-      scoreDisplay.textContent = score;
-      timeDisplay.textContent = timeLeft;
-      updateHighScore();
-
+    function startGame() {$1showSloth();
       gameInterval = setInterval(() => {
         timeLeft--;
         timeDisplay.textContent = timeLeft;
