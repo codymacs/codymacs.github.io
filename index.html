@@ -51,6 +51,13 @@
       margin-top: 10px;
       font-size: 16px;
     }
+    #winMessage {
+      font-size: 24px;
+      color: green;
+      font-weight: bold;
+      display: none;
+      margin-top: 15px;
+    }
     .section {
       padding: 20px;
     }
@@ -69,6 +76,7 @@
       <img src="slothgame/sloth.png" alt="Sloth" id="sloth">
     </div>
     <div id="highScoreBoard">High Score: <span id="highScore">0</span></div>
+    <div id="winMessage">YOU WIN!</div>
     <button id="restartBtn" style="display:none;">Restart</button>
   </div>
 
@@ -90,6 +98,7 @@
     const scoreDisplay = document.getElementById('score');
     const timeDisplay = document.getElementById('time');
     const highScoreDisplay = document.getElementById('highScore');
+    const winMessage = document.getElementById('winMessage');
 
     let score = 0;
     let timeLeft = 30;
@@ -126,6 +135,7 @@
     function startGame() {
       playBtn.style.display = 'none';
       restartBtn.style.display = 'none';
+      winMessage.style.display = 'none';
       score = 0;
       timeLeft = 30;
       scoreDisplay.textContent = score;
@@ -148,6 +158,9 @@
       clearTimeout(slothTimeout);
       sloth.style.display = 'none';
       updateHighScore();
+      if (score >= 30) {
+        winMessage.style.display = 'block';
+      }
       restartBtn.style.display = 'inline-block';
     }
 
