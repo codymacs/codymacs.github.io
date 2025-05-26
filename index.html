@@ -2,19 +2,155 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cody's Creative Journey</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #e3f2fd;
+      margin: 0;
+    }
+    h1 {
+      margin-top: 20px;
+    }
+    #gameArea {
+      position: relative;
+      width: 100vw;
+      height: 60vh;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    #sloth {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      display: none;
+      cursor: pointer;
+    }
+    #scoreBoard {
+      margin-top: 20px;
+    }
+    #playBtn, #restartBtn {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin: 10px;
+      cursor: pointer;
+    }
+    #highScoreBoard {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    .section {
+      padding: 20px;
+    }
+  </style>
 </head>
 <body>
   <h1>Welcome to My Site!</h1>
   <p>This is where I’ll be sharing games, photos, videos, and random experiments.</p>
-<div class="section">
-  <h2>📷 Photo Gallery</h2>
-  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-    <img src="images/Berries.JPG" alt="Concept Art 1" width="300">
-    <img src="images/Farmhouse.JPG" alt="Concept Art 2" width="300">
-    <img src="images/Juno.JPG" alt="Concept Art 3" width="300">
-    <img src="images/Lighthouse.JPG" alt="Concept Art 4" width="300">
+
+  <!-- Sloth Game Section -->
+  <h2>🦥 Sloth Clicker 🦥</h2>
+  <button id="playBtn">Play</button>
+  <div id="scoreBoard">Score: <span id="score">0</span> | Time Left: <span id="time">30</span>s</div>
+  <div id="gameArea">
+    <img src="slothgame/sloth.PNG" alt="Sloth" id="sloth">
   </div>
-</div>
+  <div id="highScoreBoard">High Score: <span id="highScore">0</span></div>
+  <button id="restartBtn" style="display:none;">Restart</button>
+
+  <!-- Photo Gallery Section -->
+  <div class="section">
+    <h2>📷 Photo Gallery</h2>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+      <img src="images/Berries.JPG" alt="Concept Art 1" width="300">
+      <img src="images/Farmhouse.JPG" alt="Concept Art 2" width="300">
+      <img src="images/Juno.JPG" alt="Concept Art 3" width="300">
+      <img src="images/Lighthouse.JPG" alt="Concept Art 4" width="300">
+    </div>
+  </div>
+
+  <script>
+    const playBtn = document.getElementById('playBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    const sloth = document.getElementById('sloth');
+    const scoreDisplay = document.getElementById('score');
+    const timeDisplay = document.getElementById('time');
+    const highScoreDisplay = document.getElementById('highScore');
+
+    let score = 0;
+    let timeLeft = 30;
+    let gameInterval;
+    let slothTimeout;
+
+    function getRandomPosition() {
+      const area = document.getElementById('gameArea');
+      const x = Math.random() * (area.clientWidth - 80);
+      const y = Math.random() * (area.clientHeight - 80);
+      return { x, y };
+    }
+
+    function showSloth() {
+      const pos = getRandomPosition();
+      sloth.style.left = pos.x + 'px';
+      sloth.style.top = pos.y + 'px';
+      sloth.style.display = 'block';
+
+      clearTimeout(slothTimeout);
+      slothTimeout = setTimeout(() => {
+        sloth.style.display = 'none';
+      }, 1000);
+    }
+
+    function updateHighScore() {
+      const highScore = localStorage.getItem('slothHighScore') || 0;
+      if (score > highScore) {
+        localStorage.setItem('slothHighScore', score);
+      }
+      highScoreDisplay.textContent = localStorage.getItem('slothHighScore');
+    }
+
+    function startGame() {
+      playBtn.style.display = 'none';
+      restartBtn.style.display = 'none';
+      score = 0;
+      timeLeft = 30;
+      scoreDisplay.textContent = score;
+      timeDisplay.textContent = timeLeft;
+      updateHighScore();
+
+      gameInterval = setInterval(() => {
+        timeLeft--;
+        timeDisplay.textContent = timeLeft;
+        if (timeLeft <= 0) {
+          endGame();
+        } else {
+          showSloth();
+        }
+      }, 800);
+    }
+
+    function endGame() {
+      clearInterval(gameInterval);
+      clearTimeout(slothTimeout);
+      sloth.style.display = 'none';
+      updateHighScore();
+      restartBtn.style.display = 'inline-block';
+    }
+
+    sloth.addEventListener('click', () => {
+      score++;
+      scoreDisplay.textContent = score;
+      sloth.style.display = 'none';
+      clearTimeout(slothTimeout);
+    });
+
+    playBtn.addEventListener('click', startGame);
+    restartBtn.addEventListener('click', startGame);
+
+    // Initialize high score
+    updateHighScore();
+  </script>
 </body>
 </html>
