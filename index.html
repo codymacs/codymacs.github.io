@@ -73,7 +73,7 @@
     <button id="playBtn">Play</button>
     <div id="scoreBoard">Score: <span id="score">0</span> | Time Left: <span id="time">30</span>s</div>
     <div id="gameArea">
-      <img src="slothgame/sloth.png" alt="Sloth" id="sloth">
+      <img src="slothgame/sloth.png" alt="Sloth" id="sloth" draggable="false">
     </div>
     <div id="highScoreBoard">High Score: <span id="highScore">0</span></div>
     <div id="winMessage">YOU WIN!</div>
@@ -121,7 +121,7 @@
       clearTimeout(slothTimeout);
       slothTimeout = setTimeout(() => {
         sloth.style.display = 'none';
-      }, 600);
+      }, 1000);
     }
 
     function updateHighScore() {
@@ -150,7 +150,7 @@
         } else {
           showSloth();
         }
-      }, 600);
+      }, 800);
     }
 
     function endGame() {
