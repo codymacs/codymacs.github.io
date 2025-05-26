@@ -8,18 +8,28 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      background: #e3f2fd;
       margin: 0;
     }
     h1 {
       margin-top: 20px;
     }
+    .game-container {
+      background: #e3f2fd;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 800px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
     #gameArea {
       position: relative;
-      width: 100vw;
+      width: 100%;
       height: 60vh;
       margin-top: 10px;
       overflow: hidden;
+      background: white;
+      border: 2px solid #90caf9;
+      border-radius: 8px;
     }
     #sloth {
       position: absolute;
@@ -29,7 +39,7 @@
       cursor: pointer;
     }
     #scoreBoard {
-      margin-top: 20px;
+      margin-top: 10px;
     }
     #playBtn, #restartBtn {
       padding: 10px 20px;
@@ -51,14 +61,16 @@
   <p>This is where I’ll be sharing games, photos, videos, and random experiments.</p>
 
   <!-- Sloth Game Section -->
-  <h2>🦥 Sloth Clicker 🦥</h2>
-  <button id="playBtn">Play</button>
-  <div id="scoreBoard">Score: <span id="score">0</span> | Time Left: <span id="time">30</span>s</div>
-  <div id="gameArea">
-    <img src="slothgame/sloth.png" alt="Sloth" id="sloth">
+  <div class="game-container">
+    <h2>🦥 Sloth Clicker 🦥</h2>
+    <button id="playBtn">Play</button>
+    <div id="scoreBoard">Score: <span id="score">0</span> | Time Left: <span id="time">30</span>s</div>
+    <div id="gameArea">
+      <img src="slothgame/sloth.png" alt="Sloth" id="sloth">
+    </div>
+    <div id="highScoreBoard">High Score: <span id="highScore">0</span></div>
+    <button id="restartBtn" style="display:none;">Restart</button>
   </div>
-  <div id="highScoreBoard">High Score: <span id="highScore">0</span></div>
-  <button id="restartBtn" style="display:none;">Restart</button>
 
   <!-- Photo Gallery Section -->
   <div class="section">
@@ -154,3 +166,4 @@
   </script>
 </body>
 </html>
+
