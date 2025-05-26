@@ -132,7 +132,8 @@
       highScoreDisplay.textContent = localStorage.getItem('slothHighScore');
     }
 
-    function startGame() {$1showSloth();
+    function startGame() {
+      showSloth();
       gameInterval = setInterval(() => {
         timeLeft--;
         timeDisplay.textContent = timeLeft;
@@ -170,4 +171,3 @@
   </script>
 </body>
 </html>
-
